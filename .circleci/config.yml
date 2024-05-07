@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Dependencies
+          command: npm install
+
+      - run:
+          name: Run HTML File
+          command: |
+            echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Simple HTML Page</title></head><body><h1>Hello, CircleCI!</h1><p>This is a simple HTML file to demonstrate running HTML files on CircleCI via GitHub.</p></body></html>" > index.html
+            npm run test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
